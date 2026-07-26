@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HBD Suppu ❤</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0708;
+    --bg-deep: #050304;
+    --gold: #f0c987;
+    --gold-soft: #d9a95f;
+    --ember: #ff7a4a;
+    --ember-deep: #e2542a;
+    --cream: #f7efe1;
+    --line: rgba(240,201,135,0.25);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--cream);
+    font-family:'Cormorant Garamond', serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* ---------- floating hearts ---------- */
+  #hearts{
+    position:fixed; inset:0; pointer-events:none; z-index:2; overflow:hidden;
+  }
+  .heart{
+    position:absolute;
+    bottom:-40px;
+    color:var(--ember);
+    opacity:0.75;
+    animation:rise linear infinite;
+    filter:drop-shadow(0 0 6px rgba(255,122,74,0.5));
+  }
+  @keyframes rise{
+    0%{ transform:translateY(0) translateX(0) rotate(0deg); opacity:0; }
+    10%{ opacity:0.8; }
+    90%{ opacity:0.5; }
+    100%{ transform:translateY(-110vh) translateX(var(--drift,20px)) rotate(20deg); opacity:0; }
+  }
+
+  /* ---------- music pill ---------- */
+  #music-toggle{
+    position:fixed; top:22px; right:22px; z-index:50;
+    display:flex; align-items:center; gap:8px;
+    background:linear-gradient(135deg,var(--ember),var(--ember-deep));
+    border:none; border-radius:999px;
+    padding:10px 16px;
+    color:#fff; font-family:'Montserrat',sans-serif; font-size:13px; font-weight:500;
+    cursor:pointer;
+    box-shadow:0 4px 18px rgba(226,84,42,0.45);
+    transition:transform .2s ease;
+  }
+  #music-toggle:hover{ transform:scale(1.05); }
+  #music-toggle svg{ width:14px; height:14px; }
+  .note-spin{ display:inline-block; animation:spin 3s linear infinite; }
+  @keyframes spin{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
+
+  section{
+    position:relative; z-index:5;
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:80px 24px;
+  }
+
+  .eyebrow{
+    font-family:'Montserrat',sans-serif;
+    letter-spacing:4px;
+    font-size:12px;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin-bottom:28px;
+    opacity:0.85;
+  }
+
+  /* ---------- HERO ---------- */
+  #hero{ gap:22px; }
+.avatar-frame{
+  width:150px; height:150px; border-radius:50%;
+  padding:5px;
+  background:conic-gradient(from 0deg, var(--gold), var(--ember), var(--gold-soft), var(--gold));
+  margin-bottom:8px;
+}
+  @keyframes rotateFrame{ to{ transform:rotate(360deg);} }
+  .avatar-inner{
+    width:100%; height:100%; border-radius:50%;
+    background:linear-gradient(160deg,#2a1c15,#120a08);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    border:3px solid var(--bg);
+  }
+  .avatar-inner img{ width:100%; height:100%; object-fit:contain; display:none; }
+  .avatar-inner .placeholder-icon{ color:var(--gold-soft); opacity:0.6; }
+
+  .hero-heart{ color:var(--ember); font-size:22px; margin-top:-6px; }
+
+  h1.greeting{
+    font-family:'Dancing Script', cursive;
+    font-size:clamp(42px,9vw,68px);
+    color:var(--cream);
+    line-height:1;
+  }
+  h1.greeting .name{
+    background:linear-gradient(90deg,var(--gold),var(--ember));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  .from-line{
+    font-size:19px; font-weight:400; color:var(--cream); opacity:0.85;
+    margin-top:6px;
+  }
+
+  .scroll-cta{
+    margin-top:34px; display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+  .scroll-cta span{
+    font-family:'Dancing Script',cursive; font-size:22px; color:var(--gold);
+  }
+  .chevron{
+    width:14px; height:14px; border-right:2px solid var(--gold); border-bottom:2px solid var(--gold);
+    transform:rotate(45deg);
+    animation:bounce 1.6s ease-in-out infinite;
+  }
+  @keyframes bounce{ 0%,100%{transform:rotate(45deg) translateY(0);} 50%{transform:rotate(45deg) translateY(8px);} }
+
+  .cake-wrap{ margin-top:30px; display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .candle-timer{
+    font-family:'Montserrat',sans-serif; font-weight:600; font-size:15px; letter-spacing:1px;
+    color:var(--gold); background:rgba(240,201,135,0.1); border:1px solid var(--line);
+    padding:5px 16px; border-radius:999px;
+  }
+  .cake-svg{ width:200px; height:auto; filter:drop-shadow(0 14px 26px rgba(0,0,0,0.55)); }
+
+  .flame-group{ transform-origin:100px 34px; transition:transform .5s ease, opacity .5s ease; }
+  .flame-shape{ animation:flicker 1.8s ease-in-out infinite; transform-origin:100px 28px; }
+  .flame-glow{ animation:glowPulse 1.8s ease-in-out infinite; }
+  @keyframes flicker{
+    0%,100%{ transform:scale(1) rotate(-3deg); }
+    50%{ transform:scale(1.1) rotate(3deg); }
+  }
+  @keyframes glowPulse{ 0%,100%{ opacity:0.22; } 50%{ opacity:0.4; } }
+
+  .smoke-group{ opacity:0; transition:opacity .3s ease .3s; }
+  .smoke-group path{ animation:smokeRise 1.6s ease-out infinite; }
+  @keyframes smokeRise{
+    0%{ opacity:0; transform:translateY(0) scaleY(0.6); }
+    30%{ opacity:0.5; }
+    100%{ opacity:0; transform:translateY(-16px) scaleY(1.2); }
+  }
+
+  .cake-wrap.blown-out .flame-group{ transform:scale(0); opacity:0; }
+  .cake-wrap.blown-out .smoke-group{ opacity:1; }
+
+  .wish-text{
+    font-family:'Dancing Script',cursive; font-size:19px; color:var(--gold);
+    transition:opacity .3s ease;
+  }
+
+  .wish-btn{
+    font-family:'Montserrat',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.5px;
+    color:#fff; border:none; cursor:pointer;
+    background:linear-gradient(135deg,var(--ember),var(--ember-deep));
+    padding:12px 26px; border-radius:999px;
+    box-shadow:0 8px 22px rgba(226,84,42,0.45);
+    animation:wishBtnPulse 1.8s ease-in-out infinite;
+    transition:transform .2s ease, opacity .3s ease;
+  }
+  .wish-btn:hover{ transform:scale(1.06); }
+  .wish-btn:active{ transform:scale(0.96); }
+  @keyframes wishBtnPulse{ 0%,100%{ box-shadow:0 8px 22px rgba(226,84,42,0.45); } 50%{ box-shadow:0 8px 30px rgba(226,84,42,0.75); } }
+
+  .wish-hint{
+    font-family:'Dancing Script',cursive; font-size:17px; color:var(--gold);
+    animation:hintPulse 1.6s ease-in-out infinite;
+    margin-bottom:2px;
+  }
+
+  /* ---------- HAPPY BIRTHDAY MESSAGE ---------- */
+  #birthday{ position:relative; gap:8px; }
+  .birthday-confetti{
+    position:absolute; top:6%; left:0; right:0;
+    display:flex; justify-content:space-evenly;
+    font-size:26px; pointer-events:none;
+  }
+  .birthday-confetti span{
+    display:inline-block;
+    animation:confettiSway 3.2s ease-in-out infinite;
+  }
+  .birthday-confetti span:nth-child(2){ animation-delay:.4s; }
+  .birthday-confetti span:nth-child(3){ animation-delay:.8s; }
+  .birthday-confetti span:nth-child(4){ animation-delay:1.2s; }
+  .birthday-confetti span:nth-child(5){ animation-delay:1.6s; }
+  @keyframes confettiSway{
+    0%,100%{ transform:translateY(0) rotate(-6deg); opacity:0.7; }
+    50%{ transform:translateY(14px) rotate(6deg); opacity:1; }
+  }
+  .birthday-title{
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(38px,8vw,58px);
+    line-height:1.2;
+    color:var(--cream);
+    margin:18px 0 26px;
+  }
+  .birthday-title .name{
+    background:linear-gradient(90deg,var(--gold),var(--ember));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .birthday-message{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:19px; line-height:1.65;
+    color:var(--cream); opacity:0.9;
+    max-width:420px;
+    margin-bottom:14px;
+  }
+  .birthday-sub{
+    font-family:'Dancing Script',cursive; font-style:normal;
+    font-size:22px; color:var(--gold); opacity:1;
+    margin-top:10px;
+  }
+
+  /* ---------- ENVELOPE ---------- */
+  #letter{ perspective:1200px; }
+  .envelope-hint{
+    font-family:'Montserrat',sans-serif; font-size:12px; letter-spacing:2px;
+    text-transform:uppercase; color:var(--gold-soft); opacity:0.75; margin-bottom:34px;
+  }
+  .envelope{
+    position:relative;
+    width:300px; height:196px;
+    margin:0 auto;
+    overflow:hidden;
+  }
+  .envelope.opened{
+    overflow:visible;
+  }
+  .env-body{
+    position:absolute; inset:0;
+    background:linear-gradient(160deg,#e7c99a,#caa262);
+    border-radius:6px;
+    box-shadow:0 25px 55px rgba(0,0,0,0.55);
+    z-index:1;
+  }
+  .env-pocket{
+    position:absolute; inset:0;
+    background:linear-gradient(160deg,#dbb883,#b98a4d);
+    clip-path:polygon(0 100%,100% 100%,50% 40%);
+    z-index:3;
+    border-radius:0 0 6px 6px;
+  }
+  .letter-card{
+    position:absolute;
+    left:50%; top:14px;
+    transform:translateX(-50%) translateY(0) scale(0.86);
+    width:260px;
+    z-index:2;
+    transition:transform 1s cubic-bezier(.22,.9,.32,1.1), z-index 0s linear .3s;
+    background:linear-gradient(170deg,#fbf3e4,#f2e4c8);
+    color:#3a2a1c;
+    padding:40px 26px 30px;
+    border-radius:4px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  }
+  .env-flap{
+    position:absolute; top:0; left:0; right:0; height:64%;
+    background:linear-gradient(200deg,#f0d5a3,#caa262);
+    clip-path:polygon(0 0,100% 0,50% 100%);
+    transform-origin:top center;
+    transform:rotateX(0deg);
+    transition:transform .9s cubic-bezier(.6,.1,.3,1);
+    z-index:4;
+    backface-visibility:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,0.25);
+  }
+  .env-heart{
+    position:absolute; top:36%; left:50%;
+    transform:translate(-50%,-50%);
+    width:52px; height:52px; border-radius:50%;
+    border:none; cursor:pointer;
+    background:radial-gradient(circle at 35% 30%,#ff9d75,var(--ember-deep));
+    color:#fff; font-size:22px;
+    display:flex; align-items:center; justify-content:center;
+    z-index:6;
+    box-shadow:0 6px 18px rgba(226,84,42,0.55);
+    animation:heartPulse 1.6s ease-in-out infinite;
+    transition:opacity .4s ease, transform .4s ease;
+  }
+  @keyframes heartPulse{ 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-50%,-50%) scale(1.12);} }
+  .envelope.opened .env-flap{ transform:rotateX(180deg); z-index:1; }
+  .envelope.opened .env-heart{ opacity:0; pointer-events:none; transform:translate(-50%,-50%) scale(0.4); }
+  .envelope.opened .letter-card{
+    transform:translateX(-50%) translateY(-230px) scale(1.08);
+    z-index:7; transition-delay:.35s;
+  }
+  .envelope.opened .env-pocket{ z-index:3; }
+  .envelope-outer{
+    position:relative;
+    width:300px;
+    margin:0 auto;
+  }
+  .tap-hint{
+    margin-top:16px;
+    text-align:center;
+    font-family:'Dancing Script',cursive; font-size:16px; color:var(--gold);
+    opacity:0.9;
+  }
+  #envelope.opened ~ .tap-hint{ display:none; }
+
+  /* ---------- letter-card shared text styles ---------- */
+  .letter-title{
+    font-family:'Dancing Script',cursive;
+    font-size:32px; color:#7a3b1e; margin-bottom:18px;
+  }
+  .letter-card p{
+    font-size:15px; line-height:1.55; margin-bottom:12px; font-style:italic;
+  }
+  .letter-sign{
+    margin-top:18px; font-family:'Dancing Script',cursive; font-size:21px; color:#a8471f;
+  }
+
+  /* ---------- ILLUSTRATION SECTIONS ---------- */
+  .illus-caption{
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(26px,5vw,36px);
+    color:var(--cream);
+    max-width:420px;
+    margin-bottom:46px;
+    line-height:1.3;
+  }
+  .couple-illustration{ width:220px; height:auto; filter:drop-shadow(0 10px 30px rgba(0,0,0,0.6)); }
+
+  /* ---------- MESSAGE CARD ---------- */
+  .message-card{
+    background:linear-gradient(170deg,#fbf3e4,#f2e4c8);
+    color:#3a2a1c;
+    max-width:340px; width:100%;
+    padding:44px 32px;
+    border-radius:6px;
+    box-shadow:0 25px 55px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.04);
+    position:relative;
+  }
+  .message-card::before{
+    content:'';
+    position:absolute; inset:9px;
+    border:1px solid rgba(160,120,60,0.25);
+    pointer-events:none;
+  }
+  .msg-title{
+    font-family:'Dancing Script',cursive;
+    font-size:30px; color:#7a3b1e; margin-bottom:16px;
+  }
+  .message-card p{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:17px; line-height:1.6; margin-bottom:12px;
+  }
+  .msg-sign{
+    margin-top:14px;
+    font-family:'Dancing Script',cursive; font-size:22px; color:#a8471f;
+  }
+
+  /* ---------- PHOTOS SECTION ---------- */
+  #photos .eyebrow, #photos-2 .eyebrow, #photos-3 .eyebrow{ margin-bottom:10px; }
+  .photos-title{
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(34px,7vw,50px);
+    margin-bottom:50px;
+    color:var(--cream);
+  }
+  .polaroid-grid{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:34px;
+    max-width:900px;
+  }
+  .polaroid{
+    background:#faf6ee;
+    padding:14px 14px 46px 14px;
+    width:220px;
+    border-radius:2px;
+    box-shadow:0 22px 40px rgba(0,0,0,0.55);
+    position:relative;
+    transition:transform .3s ease;
+  }
+  .polaroid:nth-child(1){ transform:rotate(-6deg); }
+  .polaroid:nth-child(2){ transform:rotate(3deg) translateY(14px); }
+  .polaroid:nth-child(3){ transform:rotate(-2deg); }
+  .polaroid:hover{ transform:scale(1.05) rotate(0deg); z-index:10; }
+  .polaroid .frame{
+    width:100%; aspect-ratio:1/1.05;
+    background:linear-gradient(150deg,#2c1c17,#160d0a);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .polaroid .frame.portrait{ aspect-ratio:860/1428; }
+  .polaroid .frame img{ width:100%; height:100%; object-fit:cover; display:none; }
+  .polaroid .frame svg{ width:34px; height:34px; color:var(--gold-soft); opacity:0.55; }
+  .polaroid .cap{
+    position:absolute; bottom:12px; left:0; right:0; text-align:center;
+    font-family:'Dancing Script',cursive; color:#5a3a22; font-size:19px;
+  }
+  .polaroid .pin{
+    position:absolute; top:-10px; left:50%; transform:translateX(-50%);
+    width:16px; height:16px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ff9d75, var(--ember-deep));
+    box-shadow:0 3px 6px rgba(0,0,0,0.5);
+  }
+  .photos-hint{
+    margin-top:40px; font-family:'Montserrat',sans-serif; font-size:12px;
+    color:var(--gold-soft); opacity:0.7; letter-spacing:0.5px; max-width:380px;
+  }
+
+  /* ---------- SCRATCH CARD SURPRISE ---------- */
+  .surprise-title{
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(24px,5vw,32px);
+    color:var(--gold);
+    margin-bottom:44px;
+  }
+  .scratch-wrap{
+    position:relative;
+    width:280px; height:280px;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 25px 55px rgba(0,0,0,0.6);
+  }
+  .scratch-reveal{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(150deg,#2c1c17,#160d0a);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .scratch-reveal img{
+    width:100%; height:100%; object-fit:cover; display:none;
+  }
+  .scratch-img-placeholder{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+    color:var(--gold-soft); opacity:0.6;
+    font-family:'Montserrat',sans-serif; font-size:12px; letter-spacing:0.5px;
+  }
+  #scratch-canvas{
+    position:absolute; inset:0; z-index:2;
+    width:100%; height:100%;
+    cursor:pointer; touch-action:none;
+  }
+  .scratch-label{
+    position:absolute; inset:0; z-index:3;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; pointer-events:none;
+    font-family:'Dancing Script',cursive; font-size:22px; color:#fff;
+    text-shadow:0 2px 8px rgba(0,0,0,0.4);
+    transition:opacity .5s ease;
+  }
+  .scratch-label .finger{ font-size:26px; animation:fingerTap 1.4s ease-in-out infinite; }
+  @keyframes fingerTap{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(10px);} }
+  .scratch-wrap.done .scratch-label{ opacity:0; }
+
+  /* ---------- FOOTER / CLOSING: GIFT BALLOON ---------- */
+  #closing{ padding-bottom:120px; }
+  .balloon-stage{
+    position:relative;
+    width:220px; height:340px;
+    margin:0 auto;
+  }
+  .balloon-svg{
+    width:180px; height:auto;
+    margin:0 auto; display:block;
+    cursor:pointer;
+    filter:drop-shadow(0 15px 30px rgba(0,0,0,0.5));
+    animation:balloonFloat 3.4s ease-in-out infinite;
+    transition:transform .18s ease, opacity .35s ease;
+    transform-origin:50% 90%;
+  }
+  @keyframes balloonFloat{
+    0%,100%{ transform:translateY(0) rotate(-2deg); }
+    50%{ transform:translateY(-14px) rotate(2deg); }
+  }
+  .balloon-stage.popped .balloon-svg{
+    animation:none;
+    transform:scale(1.5);
+    opacity:0;
+  }
+  .balloon-tap-hint{
+    text-align:center; margin-top:18px;
+    font-family:'Dancing Script',cursive; font-size:18px; color:var(--gold);
+    animation:hintPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes hintPulse{ 0%,100%{opacity:0.6;} 50%{opacity:1;} }
+  .balloon-stage.popped .balloon-tap-hint{ display:none; }
+
+  .confetti-burst{
+    position:absolute; left:50%; top:36%; width:0; height:0; pointer-events:none;
+  }
+  .confetti-piece{
+    position:absolute; left:0; top:0;
+    font-size:16px;
+    opacity:0;
+    animation:confettiFly .9s ease-out forwards;
+  }
+  @keyframes confettiFly{
+    0%{ opacity:1; transform:translate(0,0) scale(0.6); }
+    100%{ opacity:0; transform:translate(var(--dx), var(--dy)) scale(1.1); }
+  }
+
+  .pop-message{
+    position:absolute; left:50%; top:40%; transform:translate(-50%,-50%) scale(0.6);
+    text-align:center; width:260px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .5s ease .15s, transform .5s cubic-bezier(.3,1.4,.4,1) .15s;
+  }
+  .pop-message span:first-child{
+    display:block;
+    font-family:'Dancing Script',cursive; font-size:32px; color:var(--gold);
+  }
+  .pop-message .pop-heart{
+    display:inline-block; margin-top:12px; font-size:26px; color:var(--ember);
+    animation:pulseHeart 1.8s ease-in-out infinite;
+  }
+  @keyframes pulseHeart{ 0%,100%{transform:scale(1);} 50%{transform:scale(1.18);} }
+  .balloon-stage.popped .pop-message{
+    opacity:1; transform:translate(-50%,-50%) scale(1);
+  }
+
+  @media (max-width:480px){
+    .letter-card{ padding:40px 26px; }
+    .polaroid{ width:150px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="hearts"></div>
+
+
+
+<!-- ============ SECTION 1: HERO ============ -->
+<section id="hero">
+  <p class="eyebrow">Ready for a little surprise?</p>
+
+  <div class="avatar-frame">
+    <div class="avatar-inner">
+      <img id="avatar-img" src="Images/Suppu.png" alt="Suppu">
+      <svg class="placeholder-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <rect x="3" y="4" width="18" height="16" rx="2"/>
+      </svg>
+    </div>
+  </div>
+
+  <h1 class="greeting">Hello <span class="name">Suppu</span> <span class="hero-heart">❤</span></h1>
+  <p class="from-line">I made something for you.</p>
+
+  <div class="scroll-cta">
+    <span>Scroll Down To See ❤</span>
+    <div class="chevron"></div>
+  </div>
+
+  <div class="cake-wrap" id="cake-wrap">
+    <div class="candle-timer" id="candle-timer" style="display:none;">00:05</div>
+
+    <svg class="cake-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="100" cy="188" rx="80" ry="10" fill="#000" opacity="0.35"/>
+
+      <!-- candle + flame -->
+      <rect x="93" y="46" width="14" height="34" rx="3" fill="url(#candleGrad)"/>
+      <rect x="93" y="46" width="14" height="6" fill="#e2a13f" opacity="0.5"/>
+      <g id="flame-group" class="flame-group">
+        <ellipse class="flame-glow" cx="100" cy="34" rx="20" ry="20" fill="#ffb347" opacity="0.25"/>
+        <path class="flame-shape" d="M100 20c5 7 8 12 8 17a8 8 0 0 1-16 0c0-5 3-10 8-17z" fill="url(#flameGrad)"/>
+      </g>
+      <g id="smoke-group" class="smoke-group">
+        <path d="M100 30q-4 -10 2 -18q6 -8 0 -16" stroke="#cfcfcf" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- little heart topper -->
+      <path d="M76 68c-4-5-11-2-11 4 0 5 6 9 11 13 5-4 11-8 11-13 0-6-7-9-11-4z" fill="#ff7a4a" opacity="0.9"/>
+
+      <!-- top tier -->
+      <rect x="70" y="80" width="60" height="28" rx="6" fill="#fbeee0"/>
+      <path d="M70 86q15-8 30 0q15 8 30 0v-6H70v6z" fill="#f6dfca"/>
+      <circle cx="80" cy="96" r="2.6" fill="#e2483f"/>
+      <circle cx="100" cy="92" r="2.6" fill="#4a7fb5"/>
+      <circle cx="120" cy="97" r="2.6" fill="#f7c948"/>
+      <circle cx="90" cy="100" r="2.6" fill="#ec8fb2"/>
+      <circle cx="110" cy="101" r="2.6" fill="#4b7a3c"/>
+      <!-- drip frosting hanging from top tier -->
+      <g fill="#fbeee0">
+        <ellipse cx="78" cy="109" rx="6" ry="9"/>
+        <ellipse cx="94" cy="112" rx="5.5" ry="11"/>
+        <ellipse cx="110" cy="110" rx="6" ry="9.5"/>
+        <ellipse cx="122" cy="108" rx="5" ry="7.5"/>
+      </g>
+
+      <!-- middle tier -->
+      <rect x="50" y="112" width="100" height="32" rx="7" fill="#f6c9d0"/>
+      <path d="M50 119q25-9 50 0q25 9 50 0v-7H50v7z" fill="#f0aebb"/>
+      <circle cx="64" cy="130" r="2.6" fill="#fff" opacity="0.85"/>
+      <circle cx="100" cy="134" r="2.6" fill="#fff" opacity="0.85"/>
+      <circle cx="136" cy="130" r="2.6" fill="#fff" opacity="0.85"/>
+      <circle cx="82" cy="136" r="2.6" fill="#fff" opacity="0.7"/>
+      <circle cx="118" cy="137" r="2.6" fill="#fff" opacity="0.7"/>
+      <!-- drip frosting hanging from middle tier -->
+      <g fill="#f6c9d0">
+        <ellipse cx="58" cy="146" rx="6.5" ry="10"/>
+        <ellipse cx="78" cy="149" rx="6" ry="12.5"/>
+        <ellipse cx="100" cy="147" rx="6.5" ry="11"/>
+        <ellipse cx="122" cy="149" rx="6" ry="12.5"/>
+        <ellipse cx="142" cy="146" rx="6.5" ry="10"/>
+      </g>
+
+      <!-- bottom tier -->
+      <rect x="26" y="150" width="148" height="40" rx="8" fill="#f9dcae"/>
+      <path d="M26 158q37-10 74 0q37 10 74 0v-8H26v8z" fill="#f2c98a"/>
+      <path d="M26 176h148" stroke="#e6b877" stroke-width="2" opacity="0.6"/>
+      <!-- ribbon -->
+      <rect x="94" y="150" width="12" height="40" fill="#ff7a4a" opacity="0.85"/>
+      <path d="M92 150h16l-8 10z" fill="#e2542a"/>
+
+      <defs>
+        <linearGradient id="candleGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f5d38a"/>
+          <stop offset="100%" stop-color="#e2a13f"/>
+        </linearGradient>
+        <radialGradient id="flameGrad" cx="50%" cy="70%" r="70%">
+          <stop offset="0%" stop-color="#fff2c2"/>
+          <stop offset="60%" stop-color="#ffb347"/>
+          <stop offset="100%" stop-color="#ff7a4a"/>
+        </radialGradient>
+      </defs>
+    </svg>
+
+    <p class="wish-hint" id="wish-hint">tap below when you're ready ✨</p>
+    <button class="wish-btn" id="wish-btn" onclick="startWishCountdown()">🕯️ Make a Wish</button>
+    <p class="wish-text" id="wish-text" style="display:none;">Make a wish… ✨</p>
+  </div>
+</section>
+
+<!-- ============ SECTION 1b: HAPPY BIRTHDAY MESSAGE ============ -->
+<section id="birthday">
+  <div class="birthday-confetti">
+    <span>🎉</span><span>✨</span><span>🎈</span><span>🎊</span><span>✨</span>
+  </div>
+  <p class="eyebrow">🎂 to the birthday girl 🎂</p>
+  <h2 class="birthday-title">Happy Birthday,<br><span class="name">Suppu</span> ❤</h2>
+  <p class="birthday-message">Another year more beautiful, more loved, more you. I hope today brings you as much joy, laughter, and love as you bring into my life every single day.</p>
+  <p class="birthday-message birthday-sub">Here's to celebrating you today, and every day after. ❤</p>
+</section>
+
+<!-- ============ SECTION 2: LETTER (ENVELOPE) ============ -->
+<section id="letter">
+  <p class="envelope-hint">tap the heart to open</p>
+  <div class="envelope-outer">
+    <div class="envelope" id="envelope">
+      <div class="env-body"></div>
+
+      <div class="letter-card">
+        <div class="letter-title">Dear Love ❤</div>
+        <p>If life gives me a thousand chances… I'll fall in love with you a thousand times.</p>
+        <p>Not because you're perfect. But because somehow, everything feels right when you're beside me. And that's all I've ever needed. ❤</p>
+        <p>If one day someone asks me, "What was the best decision you ever made?" I'll smile… because the answer has always been you.</p>
+        <p>Thank you for loving me on my best days, and staying with me on my worst ones.</p>
+        <div class="letter-sign">I love you ❤ more than yesterday, less than tomorrow.</div>
+      </div>
+
+      <div class="env-pocket"></div>
+      <div class="env-flap"></div>
+      <button class="env-heart" id="env-heart" onclick="openEnvelope()" aria-label="Open letter">❤</button>
+    </div>
+    <div class="tap-hint" id="tap-hint">tap ❤</div>
+  </div>
+</section>
+
+
+
+<!-- ============ SECTION 3: MESSAGE CARD ============ -->
+<section id="proposal">
+  <p class="illus-caption">For the one who makes my world beautiful.</p>
+
+  <div class="message-card">
+    <div class="msg-title">For My Suppu ❤</div>
+    <p>You came into this world and filled it with so much light. Every giggle, every little step, every silly moment with you makes life more beautiful.</p>
+    <p>Watching you grow is the sweetest gift I could ever ask for.</p>
+    <div class="msg-sign">Happy Birthday, my little one. ❤</div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4: OUR PHOTOS (NEW) ============ -->
+<section id="photos">
+  <p class="eyebrow">A little gallery, just for us</p>
+  <h2 class="photos-title">Our Moments ❤</h2>
+
+  <div class="polaroid-grid">
+    <div class="polaroid">
+      <div class="pin"></div>
+      <div class="frame">
+        <img class="photo-img" src="Images/Moments_1.jpeg" alt="Our photo 1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="8.5" r="1.5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+      </div>
+      <div class="cap">that day</div>
+    </div>
+
+    <div class="polaroid">
+      <div class="pin"></div>
+      <div class="frame">
+        <img class="photo-img" src="Images/Moments_2.jpeg" alt="Our photo 2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="8.5" r="1.5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+      </div>
+      <div class="cap">us, always</div>
+    </div>
+
+    <div class="polaroid">
+      <div class="pin"></div>
+      <div class="frame">
+        <img class="photo-img" src="Images/Moments_3.jpeg" alt="Our photo 3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="8.5" r="1.5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+      </div>
+      <div class="cap">my favorite</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ SECTION 4b: LITTLE THINGS I LOVE ============ -->
+<section id="photos-2">
+  <p class="eyebrow">the little things I love</p>
+  <h2 class="photos-title">Little Things ❤</h2>
+
+  <div class="polaroid-grid">
+    <div class="polaroid">
+      <div class="pin"></div>
+      <div class="frame portrait">
+        <img class="photo-img" src="Images/Suppu_1.png" alt="Our photo 4">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="8.5" r="1.5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+      </div>
+      <div class="cap">You</div>
+    </div>
+
+    <div class="polaroid">
+      <div class="pin"></div>
+      <div class="frame portrait">
+        <img class="photo-img" src="Images/Suppu_2.png" alt="Our photo 5">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="8.5" r="1.5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+      </div>
+      <div class="cap">Your Smile</div>
+    </div>
+
+    <div class="polaroid">
+      <div class="pin"></div>
+      <div class="frame portrait">
+        <img class="photo-img" src="Images/Suppu_3.png" alt="Our photo 6">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="8.5" r="1.5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+      </div>
+      <div class="cap">Your Perfection</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4c: FOREVER US ============ -->
+<section id="photos-3">
+  <p class="eyebrow">Built on Memories, Bound by Love</p>
+  <h2 class="photos-title">Forever Us ❤</h2>
+
+  <div class="polaroid-grid">
+    <div class="polaroid">
+      <div class="pin"></div>
+      <div class="frame">
+        <img class="photo-img" src="Images/Forever_1.jpeg" alt="Our photo 7">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="8.5" r="1.5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+      </div>
+      <div class="cap">That Day</div>
+    </div>
+
+    <div class="polaroid">
+      <div class="pin"></div>
+      <div class="frame">
+        <img class="photo-img" src="Images/Forever_2.jpeg" alt="Our photo 8">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="8.5" r="1.5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+      </div>
+      <div class="cap">Us</div>
+    </div>
+
+    <div class="polaroid">
+      <div class="pin"></div>
+      <div class="frame">
+        <img class="photo-img" src="Images/Forever_3.jpeg" alt="Our photo 9">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="8.5" r="1.5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+      </div>
+      <div class="cap">Bappa's Blessing</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4.5: SCRATCH CARD SURPRISE ============ -->
+<section id="surprise">
+  <p class="eyebrow">✨ one last surprise awaits ✨</p>
+  <h2 class="surprise-title">Scratch to reveal it ❤</h2>
+
+  <div class="scratch-wrap" id="scratch-wrap">
+    <div class="scratch-reveal">
+      <img id="scratch-img" src="Images/Scratch_1.jpeg" alt="Our surprise photo">
+      <div class="scratch-img-placeholder">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+        </svg>
+      </div>
+    </div>
+    <canvas id="scratch-canvas"></canvas>
+    <div class="scratch-label" id="scratch-label">
+      <span class="finger">👆</span>
+      <span>Scratch to Reveal</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5: GIFT BALLOON REVEAL ============ -->
+<section id="closing">
+  <p class="illus-caption">Here is Your Gift 🎁</p>
+
+  <div class="balloon-stage" id="balloon-stage">
+    <svg class="balloon-svg" id="balloon-svg" viewBox="0 0 140 230" onclick="popBalloon()">
+      <path d="M70 150q14 18 2 34q-12 15 0 32" stroke="#d9a95f" stroke-width="2" fill="none"/>
+      <path d="M62 146l8 10 8-10z" fill="#e2483f"/>
+      <ellipse cx="70" cy="78" rx="54" ry="66" fill="#e2483f"/>
+      <ellipse cx="70" cy="78" rx="54" ry="66" fill="url(#balloonShade)"/>
+      <ellipse cx="48" cy="46" rx="14" ry="20" fill="#fff" opacity="0.22"/>
+      <defs>
+        <radialGradient id="balloonShade" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#ff7a6f"/>
+          <stop offset="60%" stop-color="#e2483f"/>
+          <stop offset="100%" stop-color="#b5322c"/>
+        </radialGradient>
+      </defs>
+    </svg>
+
+    <div class="confetti-burst" id="confetti-burst"></div>
+
+    <p class="balloon-tap-hint" id="balloon-tap-hint">tap the balloon</p>
+
+    <div class="pop-message" id="pop-message">
+      <span>It's a surprise, Shona</span>
+      <span class="pop-heart">❤</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  // floating hearts background
+  const heartsContainer = document.getElementById('hearts');
+  const glyphs = ['❤','♥','❤'];
+  function spawnHeart(){
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = glyphs[Math.floor(Math.random()*glyphs.length)];
+    const size = 10 + Math.random()*18;
+    h.style.left = Math.random()*100 + 'vw';
+    h.style.fontSize = size + 'px';
+    h.style.setProperty('--drift', (Math.random()*80-40) + 'px');
+    h.style.animationDuration = (7 + Math.random()*8) + 's';
+    heartsContainer.appendChild(h);
+    setTimeout(()=>h.remove(), 16000);
+  }
+  setInterval(spawnHeart, 550);
+  for(let i=0;i<10;i++) setTimeout(spawnHeart, i*300);
+
+  // candle countdown: starts only when "Make a Wish" button is tapped
+  function startWishCountdown(){
+    const wrap = document.getElementById('cake-wrap');
+    const timerEl = document.getElementById('candle-timer');
+    const wishEl = document.getElementById('wish-text');
+    const btn = document.getElementById('wish-btn');
+    if(!wrap || btn.disabled) return;
+    btn.disabled = true;
+    btn.style.opacity = 0;
+    setTimeout(()=>{ btn.style.display = 'none'; }, 300);
+    const hintEl = document.getElementById('wish-hint');
+    if(hintEl) hintEl.style.display = 'none';
+    timerEl.style.display = 'inline-block';
+    wishEl.style.display = 'block';
+    wishEl.textContent = 'Make a wish… ✨';
+    wishEl.style.opacity = 1;
+
+    let remaining = 5;
+    function render(){
+      const s = String(remaining % 60).padStart(2,'0');
+      const m = String(Math.floor(remaining/60)).padStart(2,'0');
+      timerEl.textContent = m + ':' + s;
+    }
+    render();
+    const tick = setInterval(()=>{
+      remaining--;
+      if(remaining <= 0){
+        remaining = 0;
+        render();
+        clearInterval(tick);
+        wrap.classList.add('blown-out');
+        timerEl.textContent = '00:00';
+        wishEl.style.opacity = 0;
+        setTimeout(()=>{
+          wishEl.textContent = 'Wish granted, forever yours ❤';
+          wishEl.style.opacity = 1;
+        }, 350);
+        return;
+      }
+      render();
+    }, 1000);
+  }
+
+  // balloon pop reveal
+  function popBalloon(){
+    const stage = document.getElementById('balloon-stage');
+    if(stage.classList.contains('popped')) return;
+    stage.classList.add('popped');
+
+    const burst = document.getElementById('confetti-burst');
+    const pieces = ['❤','✨','🎉','💛','💕'];
+    for(let i=0;i<22;i++){
+      const el = document.createElement('span');
+      el.className = 'confetti-piece';
+      el.textContent = pieces[Math.floor(Math.random()*pieces.length)];
+      const angle = Math.random()*Math.PI*2;
+      const dist = 60 + Math.random()*90;
+      el.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+      el.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+      el.style.animationDelay = (Math.random()*0.15) + 's';
+      burst.appendChild(el);
+      setTimeout(()=>el.remove(), 1200);
+    }
+  }
+
+  // envelope open
+  function openEnvelope(){
+    const env = document.getElementById('envelope');
+    if(env.classList.contains('opened')) return;
+    env.classList.add('opened');
+  }
+
+  // scratch card
+  (function(){
+    const canvas = document.getElementById('scratch-canvas');
+    const wrap = document.getElementById('scratch-wrap');
+    const label = document.getElementById('scratch-label');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, scratching = false, done = false;
+
+    function resize(){
+      const rect = wrap.getBoundingClientRect();
+      w = canvas.width = rect.width;
+      h = canvas.height = rect.height;
+      drawCover();
+    }
+    function drawCover(){
+      const grad = ctx.createLinearGradient(0,0,w,h);
+      grad.addColorStop(0,'#caa262');
+      grad.addColorStop(0.5,'#e7c99a');
+      grad.addColorStop(1,'#b98a4d');
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = grad;
+      ctx.fillRect(0,0,w,h);
+      ctx.fillStyle = 'rgba(255,255,255,0.12)';
+      for(let i=0;i<40;i++){
+        ctx.beginPath();
+        ctx.arc(Math.random()*w, Math.random()*h, Math.random()*1.6, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+    function scratchAt(x,y){
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x,y,24,0,Math.PI*2);
+      ctx.fill();
+    }
+    function getPos(e){
+      const rect = canvas.getBoundingClientRect();
+      const cx = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      const cy = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+      return {x:cx, y:cy};
+    }
+    function checkDone(){
+      if(done) return;
+      const data = ctx.getImageData(0,0,w,h).data;
+      let cleared = 0;
+      const step = 40; // sample every nth pixel for speed
+      let total = 0;
+      for(let i=3; i<data.length; i+= 4*step){
+        total++;
+        if(data[i] < 40) cleared++;
+      }
+      if(cleared/total > 0.45){
+        done = true;
+        label.style.opacity = 0;
+        wrap.classList.add('done');
+        ctx.clearRect(0,0,w,h);
+      }
+    }
+    function start(e){ scratching = true; label.style.opacity = 0; move(e); }
+    function move(e){
+      if(!scratching || done) return;
+      const p = getPos(e);
+      scratchAt(p.x,p.y);
+      checkDone();
+      e.preventDefault();
+    }
+    function end(){ scratching = false; }
+
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', end);
+    canvas.addEventListener('touchstart', start, {passive:false});
+    canvas.addEventListener('touchmove', move, {passive:false});
+    canvas.addEventListener('touchend', end);
+    window.addEventListener('resize', resize);
+    resize();
+  })();
+
+  const audio = document.getElementById('bg-audio');
+  const playIcon = document.getElementById('play-icon');
+  const pauseIcon = document.getElementById('pause-icon');
+  let playing = false;
+  function toggleMusic(){
+    if(!audio.src){ return; } // no track added yet
+    if(playing){ audio.pause(); } else { audio.play().catch(()=>{}); }
+    playing = !playing;
+    playIcon.style.display = playing ? 'none' : 'block';
+    pauseIcon.style.display = playing ? 'block' : 'none';
+  }
+
+  // reveal images automatically once a real src is set (handles already-cached/instant loads too)
+  function revealImg(img){
+    if(img.src && img.naturalWidth > 0){
+      img.style.display='block';
+      const sib = img.nextElementSibling;
+      if(sib) sib.style.display='none';
+    }
+  }
+  document.querySelectorAll('img').forEach(img=>{
+    if(img.getAttribute('src')){
+      if(img.complete){ revealImg(img); }
+      img.addEventListener('load', ()=>revealImg(img));
+    }
+  });
+</script>
+
+</body>
+</html>
